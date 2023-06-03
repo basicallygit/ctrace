@@ -33,7 +33,7 @@ int main(int argc, char** argv) {
 
     if (pid == 0) {
         // child
-        ptrace(PTRACE_TRACEME); // ask parent to be traced
+        ptrace(PTRACE_TRACEME); // Ask parent to be traced
 
         if (execvp(argv[1], newArgv) == -1) {
             printf("Error running execvp, errno: %d\n", errno);
@@ -41,7 +41,7 @@ int main(int argc, char** argv) {
         }
     }
     else {
-        // parent
+        // Parent
         ptrace(PTRACE_ATTACH, pid, 0, 0);
         waitpid(pid, NULL, 0);
 
@@ -82,6 +82,7 @@ int main(int argc, char** argv) {
     for (int i = 0; i < newArgc; i++) {
         free(newArgv[i]);
     }
+
     free(newArgv);
     return 0;
 }
