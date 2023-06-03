@@ -8,82 +8,127 @@
 void map_syscall_to_name(long syscall_number, struct user_regs_struct* regs) {
     switch (syscall_number) {
         case 0:
-            printf("read(%ld, 0x%lx, %ld)\n", regs->rdi, regs->rsi, regs->rdx);
+            printf("read(%llu, 0x%llx, %llu)\n", regs->rdi, regs->rsi, regs->rdx);
             break;
         case 1:
-            printf("write(%ld, 0x%lx, %ld)\n", regs->rdi, regs->rsi, regs->rdx);
+            printf("write(%llu, 0x%llx, %llu)\n", regs->rdi, regs->rsi, regs->rdx);
             break;
         case 2:
-            printf("open(%ld, %ld, %ld)\n", regs->rdi, regs->rsi, regs->rdx);
+            printf("open(%llu, %llu, %llu)\n", regs->rdi, regs->rsi, regs->rdx);
             break;
         case 3:
-            printf("close(%ld)\n", regs->rdi);
+            printf("close(%llu)\n", regs->rdi);
             break;
         case 4:
-            printf("stat(%ld, 0x%lx)\n", regs->rdi, regs->rsi);
+            printf("stat(%llu, 0x%llx)\n", regs->rdi, regs->rsi);
             break;
         case 5:
-            printf("fstat(%ld, 0x%lx)\n", regs->rdi, regs->rsi);
+            printf("fstat(%llu, 0x%llx)\n", regs->rdi, regs->rsi);
             break;
         case 6:
-            printf("lstat(0x%lx, 0x%lx)\n", regs->rdi, regs->rsi);
+            printf("lstat(0x%llx, 0x%llx)\n", regs->rdi, regs->rsi);
+            break;
+        case 7:
+            printf("poll(0x%llx, %llu, %llu)\n", regs->rdi, regs->rsi, regs->rdx);
+            break;
+        case 8:
+            printf("lseek(%llu, %llu, %llu)\n", regs->rdi, regs->rsi, regs->rdx);
             break;
         case 9:
-            printf("mmap(0x%lx, %ld, %ld, %ld, %ld, %ld)\n", regs->rdi, regs->rsi, regs->rdx, regs->r10, regs->r8, regs->r9);
+            printf("mmap(0x%llx, %llu, %llu, %llu, %llu, %llu)\n", regs->rdi, regs->rsi, regs->rdx, regs->r10, regs->r8, regs->r9);
             break;
         case 10:
-            printf("mprotect(0x%lx, %ld, %ld)\n", regs->rdi, regs->rsi, regs->rdx);
+            printf("mprotect(0x%llx, %llu, %llu)\n", regs->rdi, regs->rsi, regs->rdx);
             break;
         case 11:
-            printf("munmap(0x%lx, %ld)\n", regs->rdi, regs->rsi);
+            printf("munmap(0x%llx, %llu)\n", regs->rdi, regs->rsi);
             break;
         case 12:
             printf("brk()\n");
             break;
+        case 13:
+            printf("rt_sigaction(%llu, 0x%llx, 0x%llx, %llu)\n", regs->rdi, regs->rsi, regs->rdx, regs->r10);
+            break;
+        case 14:
+            printf("rt_sigprocmask(%llu, 0x%llx, 0x%llx, %llu)\n", regs->rdi, regs->rsi, regs->rdx, regs->r10);
+            break;
+        case 15:
+            printf("rt_sigreturn(%llu)\n", regs->rdi);
+            break;
         case 16:
-            printf("ioctl(%ld, %ld, %ld)\n", regs->rdi, regs->rsi, regs->rdx);
+            printf("ioctl(%llu, %llu, %llu)\n", regs->rdi, regs->rsi, regs->rdx);
             break;
         case 17:
-            printf("pread64(0x%x, 0x%x, %ld, %ld)\n", regs->rdi, regs->rsi, regs->rdx, regs->r10);
+            printf("pread64(%llu, 0x%llx, %llu, %llu)\n", regs->rdi, regs->rsi, regs->rdx, regs->r10);
+            break;
+        case 18:
+            printf("pwrite64(%llu, 0x%llx, %llu, %llu)\n", regs->rdi, regs->rsi, regs->rdx, regs->r10);
+            break;
+        case 19:
+            printf("readv(%llu, 0x%llx, %llu)\n", regs->rdi, regs->rsi, regs->rdx);
+            break;
+        case 20:
+            printf("writev(%llu, 0x%llx, %llu)\n", regs->rdi, regs->rsi, regs->rdx);
             break;
         case 21:
-            printf("access(0x%lx, %ld)\n", regs->rdi, regs->rsi);
+            printf("access(0x%llx, %llu)\n", regs->rdi, regs->rsi);
+            break;
+        case 22:
+            printf("pipe(0x%llx)\n", regs->rdi);
+            break;
+        case 23:
+            printf("select(%llu, 0x%llx, 0x%llx, 0x%llx, 0x%llx)\n", regs->rdi, regs->rsi, regs->rdx, regs->r10, regs->r8);
+            break;
+        case 24:
+            printf("sched_yield()\n");
+            break;
+        case 25:
+            printf("mremap(0x%llx, %llu, %llu, %llu, %llu)\n", regs->rdi, regs->rsi, regs->rdx, regs->r10, regs->r8);
+            break;
+        case 26:
+            printf("msync(%llu, %llu, %llu)", regs->rdi, regs->rsi, regs->rdx);
+            break;
+        case 27:
+            printf("mincore(%llu, %llu, 0x%llx)", regs->rdi, regs->rsi, regs->rdx);
+            break;
+        case 28:
+            printf("madvise(%llu, %llu, %llu)\n", regs->rdi, regs->rsi, regs->rdx);
             break;
         case 101:
-            printf("ptrace(%ld, %ld, 0x%lx, %ld)\n", regs->rdi, regs->rsi, regs->rdx, regs->r10);
+            printf("ptrace(%llu, %llu, 0x%llx, %llu)\n", regs->rdi, regs->rsi, regs->rdx, regs->r10);
             break;
         case 59:
-            printf("execve(0x%lx, 0x%lx, 0x%lx)\n", regs->rdi, regs->rsi, regs->rdx);
+            printf("execve(0x%llx, 0x%llx, 0x%llx)\n", regs->rdi, regs->rsi, regs->rdx);
             break;
         case 157:
-            printf("prctl(%ld, %ld, %ld, %ld)\n", regs->rdi, regs->rsi, regs->rdx, regs->r10, regs->r9);
+            printf("prctl(%llu, %llu, %llu, %llu)\n", regs->rdi, regs->rsi, regs->rdx, regs->r10);
             break;
         case 158:
-            printf("arch_prctl(0x%lx, %lu, 0x%lx)\n", regs->rdi, regs->rsi, regs->rdx);
+            printf("arch_prctl(0x%llx, %llu, 0x%llx)\n", regs->rdi, regs->rsi, regs->rdx);
             break;
         case 217:
-            printf("getdents64(%ld, 0x%lx, %ld)\n", regs->rdi, regs->rsi, regs->rdx);
+            printf("getdents64(%llu, 0x%llx, %llu)\n", regs->rdi, regs->rsi, regs->rdx);
             break;
         case 218:
-            printf("set_tid_address(0x%lx)\n", regs->rdi);
+            printf("set_tid_address(0x%llx)\n", regs->rdi);
             break;
         case 231:
-            printf("exit_group(%ld)\n", regs->rdi);
+            printf("exit_group(%llu)\n", regs->rdi);
             break;
         case 262:
-            printf("newfstatat(%ld, 0x%lx, 0x%lx, %lu)\n", regs->rdi, regs->rsi, regs->rdx, regs->r10);
+            printf("newfstatat(%llu, 0x%llx, 0x%llx, %llu)\n", regs->rdi, regs->rsi, regs->rdx, regs->r10);
             break;
         case 257:
-            printf("openat(%ld, 0x%lx, %ld, %ld)\n", regs->rdi, regs->rsi, regs->rdx, regs->r10);
+            printf("openat(%llu, 0x%llx, %llu, %llu)\n", regs->rdi, regs->rsi, regs->rdx, regs->r10);
             break;
         case 273:
-            printf("set_robust_list(0x%lx, %ld)\n", regs->rdi, regs->rsi);
+            printf("set_robust_list(0x%llx, %llu)\n", regs->rdi, regs->rsi);
             break;
         case 302:
-            printf("prlimit64(%ld, %ld, 0x%lx, 0x%lx)\n", regs->rdi, regs->rsi, regs->rdx, regs->r10);
+            printf("prlimit64(%llu, %llu, 0x%llx, 0x%llx)\n", regs->rdi, regs->rsi, regs->rdx, regs->r10);
             break;
         case 318:
-            printf("getrandom(0x%lx, %ld, %ld)\n", regs->rdi, regs->rsi, regs->rdx);
+            printf("getrandom(0x%llx, %llu, %llu)\n", regs->rdi, regs->rsi, regs->rdx);
             break;
         case 332:
             printf("statx()\n");
@@ -92,7 +137,7 @@ void map_syscall_to_name(long syscall_number, struct user_regs_struct* regs) {
             printf("rseq()\n");
             break;
         default:
-            printf("syscall number: %d\n", syscall_number);
+            printf("syscall number: %ld\n", syscall_number);
             break;
     }
 }
